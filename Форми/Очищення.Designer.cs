@@ -33,6 +33,7 @@
             this.checkBox3 = new System.Windows.Forms.CheckBox();
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBox1
@@ -96,12 +97,25 @@
             this.button1.UseVisualStyleBackColor = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBox5.Location = new System.Drawing.Point(12, 104);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(89, 17);
+            this.checkBox5.TabIndex = 6;
+            this.checkBox5.Text = "Кошик [beta]";
+            this.checkBox5.UseVisualStyleBackColor = false;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
+            // 
             // Очищення
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.ClientSize = new System.Drawing.Size(461, 225);
+            this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox4);
             this.Controls.Add(this.checkBox3);
@@ -121,6 +135,7 @@
         internal System.Windows.Forms.CheckBox checkBox2;
         internal System.Windows.Forms.CheckBox checkBox3;
         internal System.Windows.Forms.CheckBox checkBox4;
-        private System.Windows.Forms.Button button1;
+        internal System.Windows.Forms.CheckBox checkBox5;
+        internal System.Windows.Forms.Button button1;
     }
 }

@@ -39,9 +39,9 @@
             this.checkBox1.ForeColor = System.Drawing.SystemColors.Control;
             this.checkBox1.Location = new System.Drawing.Point(12, 12);
             this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(191, 17);
+            this.checkBox1.Size = new System.Drawing.Size(221, 17);
             this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "Класичний перегляд фотографій";
+            this.checkBox1.Text = "Класичний перегляд фотографій [beta]";
             this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // checkBox2
@@ -50,9 +50,9 @@
             this.checkBox2.ForeColor = System.Drawing.SystemColors.Control;
             this.checkBox2.Location = new System.Drawing.Point(12, 35);
             this.checkBox2.Name = "checkBox2";
-            this.checkBox2.Size = new System.Drawing.Size(148, 17);
+            this.checkBox2.Size = new System.Drawing.Size(178, 17);
             this.checkBox2.TabIndex = 1;
-            this.checkBox2.Text = "Старе контекстне меню";
+            this.checkBox2.Text = "Старе контекстне меню [beta]";
             this.checkBox2.UseVisualStyleBackColor = true;
             // 
             // button1

@@ -36,6 +36,11 @@ namespace Tweaker_in_1
             Sounds.PlaySound3();
         }
 
+        private void checkBox5_CheckedChanged(object sender, EventArgs e)
+        {
+            Sounds.PlaySound3();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
             foreach (var item in Controls.OfType<CheckBox>())
@@ -121,11 +126,25 @@ namespace Tweaker_in_1
                 else
                     checkBox4.ForeColor = Color.FromName("Control");
             }
+            if (checkBox5.Checked)
+            {
+                path = @"C:\$RECYCLE.BIN";
+                if (Directory.Exists(path))
+                    size += Cleaner.CleanerInFoldersTheFiles(path);
+                checkBox5.Checked = false;
+                checkBox5.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    checkBox5.ForeColor = Color.FromName("Control");
+            }
             size = Convert.ToDouble(string.Format("{0:f1}", size / 1024 / 1024));
             await Task.Delay(1000);
             Form1.mainForm.need = false;
             MessageBox.Show($"Було очищено: {size} MB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             await Task.Delay(1000);
         }
+
+        
     }
 }

@@ -84,7 +84,59 @@ namespace Tweaker_in_1
             }
             #endregion
 
-            #region Перевірка реєстру
+            #region Перевірка Очищення
+            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Temp") <= 1 && Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp") <= 50000000)
+            {
+                очищення.checkBox2.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    очищення.checkBox2.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    очищення.checkBox2.ForeColor = Color.FromName("Control");
+            }
+
+            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\DataStore") <= 1)
+            {
+                очищення.checkBox3.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    очищення.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    очищення.checkBox3.ForeColor = Color.FromName("Control");
+            }
+
+            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\Download") <= 1)
+            {
+                очищення.checkBox4.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    очищення.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    очищення.checkBox4.ForeColor = Color.FromName("Control");
+            }
+
+            if (Cleaner.FolderSize(@"C:\$RECYCLE.BIN") <= 129)
+            {
+                очищення.checkBox5.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    очищення.checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    очищення.checkBox5.ForeColor = Color.FromName("Control");
+            }
+
+            #endregion
+
+            #region Перевірка Оптимізації
+
+            оптимізація.checkBox1.AutoCheck = false;
+            if (Settings.Default.DarkTheme)
+                оптимізація.checkBox1.ForeColor = Color.FromName("ControlDarkDark");
+            else
+                оптимізація.checkBox1.ForeColor = Color.FromName("Control");
+
+            оптимізація.checkBox2.AutoCheck = false;
+            if (Settings.Default.DarkTheme)
+                оптимізація.checkBox2.ForeColor = Color.FromName("ControlDarkDark");
+            else
+                оптимізація.checkBox2.ForeColor = Color.FromName("Control");
+
             if (Registry.LocalMachine.OpenSubKey("SOFTWARE\\Policies\\Microsoft\\Dsh").GetValue("AllowNewsAndInterests") == null)
             {
                 оптимізація.checkBox3.AutoCheck = true;
@@ -128,34 +180,6 @@ namespace Tweaker_in_1
             PanelFormNoDispose(очищення);
             Location = new Point(Location.X, Location.Y + 490);
 
-            #region LoadForОчищення
-            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Temp") <= 1 && Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp") <= 50000000)
-            {
-                очищення.checkBox2.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox2.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox2.ForeColor = Color.FromName("Control");
-            }
-
-            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\DataStore") <= 1)
-            {
-                очищення.checkBox3.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox3.ForeColor = Color.FromName("Control");
-            }
-
-            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\Download") <= 1)
-            {
-                очищення.checkBox4.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox4.ForeColor = Color.FromName("Control");
-            }
-            #endregion
 
             await Task.Delay(500);
             AnimationFormUo();
