@@ -59,7 +59,7 @@ namespace Tweaker_in_1
 
         private async void Form1_Load(object sender, EventArgs e)
         {
-
+            #region Перевірка Settings
             if (Settings.Default.SystemNotification == true)
                 налаштування.checkBox1.Checked = true;
             else
@@ -82,6 +82,48 @@ namespace Tweaker_in_1
                 налаштування.checkBox4.Checked = false;
                 button1.ForeColor = Color.FromArgb(0, 0, 0);
             }
+            #endregion
+
+            #region Перевірка реєстру
+            if (Registry.LocalMachine.OpenSubKey("SOFTWARE\\Policies\\Microsoft\\Dsh").GetValue("AllowNewsAndInterests") == null)
+            {
+                оптимізація.checkBox3.AutoCheck = true;
+                оптимізація.button4.Visible = false;
+                if (Settings.Default.DarkTheme)
+                    оптимізація.checkBox3.ForeColor = Color.FromName("Control");
+                else
+                    оптимізація.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
+            }
+            else
+            {
+                оптимізація.checkBox3.AutoCheck = false;
+                оптимізація.button4.Visible = true;
+                if (Settings.Default.DarkTheme)
+                    оптимізація.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    оптимізація.checkBox3.ForeColor = Color.FromName("Control");
+            }
+
+            if (Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications").GetValue("GlobalUserDisabled") == null || Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Search").GetValue("BackgroundAppGlobalToggle") == null)
+            {
+                оптимізація.checkBox4.AutoCheck = true;
+                оптимізація.button5.Visible = false;
+                if (Settings.Default.DarkTheme)
+                    оптимізація.checkBox4.ForeColor = Color.FromName("Control");
+                else
+                    оптимізація.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
+            }
+            else
+            {
+                оптимізація.checkBox4.AutoCheck = false;
+                оптимізація.button5.Visible = true;
+                if (Settings.Default.DarkTheme)
+                    оптимізація.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    оптимізація.checkBox4.ForeColor = Color.FromName("Control");
+            }
+
+            #endregion
 
             PanelFormNoDispose(очищення);
             Location = new Point(Location.X, Location.Y + 490);
