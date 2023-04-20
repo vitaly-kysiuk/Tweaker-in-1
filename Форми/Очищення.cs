@@ -174,6 +174,10 @@ namespace Tweaker_in_1
                 path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data";
                 if (Directory.Exists(path))
                     size += Cleaner.CleanerInFoldersTheFiles(path);
+                path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Google\Chrome\UserData\Default\Cache";
+                if (Directory.Exists(path))
+                    size += Cleaner.CleanerInFoldersTheFiles(path);
+
                 checkBox7.Checked = false;
                 checkBox7.AutoCheck = false;
                 if (Settings.Default.DarkTheme)

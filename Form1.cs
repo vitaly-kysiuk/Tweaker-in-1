@@ -139,7 +139,6 @@ namespace Tweaker_in_1
                     }
                 }
                 catch (Exception){ }
-                
             }
 
             if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\Telegram Desktop"))
@@ -150,7 +149,7 @@ namespace Tweaker_in_1
                 else
                     очищення.checkBox6.ForeColor = Color.FromName("Control");
             }
-            if (Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data"))
+            if (Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data") || Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Google\Chrome\UserData\Default\Cache"))
             {
                 очищення.checkBox7.AutoCheck = true;
                 if (Settings.Default.DarkTheme)

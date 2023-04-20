@@ -339,7 +339,6 @@
         #endregion
         private System.Windows.Forms.Button button9;
         private System.Windows.Forms.Button button8;
-        private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.ToolStripMenuItem відкритиToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem закритиToolStripMenuItem;
         private System.Windows.Forms.ContextMenuStrip contextMenuStrip1;
@@ -355,6 +354,7 @@
         public System.Windows.Forms.Panel panel2;
         public System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button button7;
+        internal System.Windows.Forms.Panel panel3;
     }
 }
 
