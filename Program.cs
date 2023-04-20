@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Threading;
 using System.Windows.Forms;
 
 namespace Tweaker_in_1
@@ -16,7 +14,13 @@ namespace Tweaker_in_1
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Application.ThreadException += new ThreadExceptionEventHandler(Exception);
             Application.Run(new Form1());
+        }
+
+        private static void Exception(object sender, ThreadExceptionEventArgs e)
+        {
+            MessageBox.Show(e.Exception.ToString(), e.Exception.Source.ToString(), MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
     }
 }

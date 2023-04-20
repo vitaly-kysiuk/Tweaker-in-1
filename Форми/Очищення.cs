@@ -41,6 +41,17 @@ namespace Tweaker_in_1
             Sounds.PlaySound3();
         }
 
+        private void checkBox6_CheckedChanged(object sender, EventArgs e)
+        {
+            Sounds.PlaySound3();
+        }
+
+        private void checkBox7_CheckedChanged(object sender, EventArgs e)
+        {
+            Sounds.PlaySound3();
+        }
+
+
         private void button1_Click(object sender, EventArgs e)
         {
             foreach (var item in Controls.OfType<CheckBox>())
@@ -125,14 +136,46 @@ namespace Tweaker_in_1
                     checkBox4.ForeColor = Color.FromName("ControlDarkDark");
                 else
                     checkBox4.ForeColor = Color.FromName("Control");
+                await Task.Delay(500);
             }
             if (checkBox5.Checked)
             {
-                path = @"C:\$RECYCLE.BIN";
-                if (Directory.Exists(path))
-                    size += Cleaner.CleanerInFoldersTheFiles(path);
+                string[] Drives = Environment.GetLogicalDrives();
+                foreach (string s in Drives)
+                {
+                    path = $@"{s}$RECYCLE.BIN";
+                    if (Directory.Exists(path) && Cleaner.FolderSize(path) > 129)
+                        size += Cleaner.CleanerInFoldersTheFiles(path);
+                }
                 checkBox5.Checked = false;
                 checkBox5.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    checkBox5.ForeColor = Color.FromName("Control");
+                await Task.Delay(500);
+                Form1.Cmd("taskkill /F /IM explorer.exe & start explorer.exe");
+            }
+            if (checkBox6.Checked)
+            {
+                path = Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\Telegram Desktop";
+                if (Directory.Exists(path))
+                    size += Cleaner.CleanerInFoldersTheFiles(path);
+                checkBox6.Checked = false;
+                checkBox6.AutoCheck = false;
+                if (Settings.Default.DarkTheme)
+                    checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                else
+                    checkBox5.ForeColor = Color.FromName("Control");
+                await Task.Delay(300);
+            }
+            if (checkBox7.Checked)
+            {
+                path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data";
+                if (Directory.Exists(path))
+                    size += Cleaner.CleanerInFoldersTheFiles(path);
+                checkBox7.Checked = false;
+                checkBox7.AutoCheck = false;
                 if (Settings.Default.DarkTheme)
                     checkBox5.ForeColor = Color.FromName("ControlDarkDark");
                 else
@@ -144,7 +187,5 @@ namespace Tweaker_in_1
             MessageBox.Show($"Було очищено: {size} MB", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
             await Task.Delay(1000);
         }
-
-        
     }
 }

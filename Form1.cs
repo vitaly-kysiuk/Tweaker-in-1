@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Management;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -16,13 +17,13 @@ namespace Tweaker_in_1
 {
     public partial class Form1 : Form
     {
-        private Form active;
         public static Form1 mainForm;
         public static Очищення очищення;
         public static Оптимізація оптимізація;
         public static Інтерфейс інтерфейс;
         public static Налаштування налаштування;
-        public static Системна_інформація системна_інформація;
+        //public static Системна_інформація системна_інформація;
+        private Form active = очищення;
         internal bool need;
         private bool drag;
         private Point startPoint;
@@ -30,11 +31,11 @@ namespace Tweaker_in_1
         public Form1()
         {
             InitializeComponent();
-            InitializeForms();
             mainForm = this;
+            InitializeForms();
         }
 
-        private void InitializeForms()
+        internal void InitializeForms()
         {
             очищення = new Очищення();
             очищення.TopLevel = false;
@@ -52,9 +53,9 @@ namespace Tweaker_in_1
             налаштування.TopLevel = false;
             panel3.Controls.Add(налаштування);
 
-            системна_інформація = new Системна_інформація();
-            системна_інформація.TopLevel = false;
-            panel3.Controls.Add(системна_інформація);
+            //системна_інформація = new Системна_інформація();
+            //системна_інформація.TopLevel = false;
+            //panel3.Controls.Add(системна_інформація);
         }
 
         private async void Form1_Load(object sender, EventArgs e)
@@ -85,101 +86,84 @@ namespace Tweaker_in_1
             #endregion
 
             #region Перевірка Очищення
-            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Temp") <= 1 && Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp") <= 50000000)
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Temp") && File.Exists(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp"))
             {
-                очищення.checkBox2.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox2.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox2.ForeColor = Color.FromName("Control");
+                if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\Temp") <= 1 && Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData) + @"\Temp") <= 50000000)
+                {
+                    очищення.checkBox2.AutoCheck = false;
+                    if (Settings.Default.DarkTheme)
+                        очищення.checkBox2.ForeColor = Color.FromName("ControlDarkDark");
+                    else
+                        очищення.checkBox2.ForeColor = Color.FromName("Control");
+                }
+            }
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\DataStore"))
+            {
+                if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\DataStore") <= 1)
+                {
+                    очищення.checkBox3.AutoCheck = false;
+                    if (Settings.Default.DarkTheme)
+                        очищення.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
+                    else
+                        очищення.checkBox3.ForeColor = Color.FromName("Control");
+                }
             }
 
-            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\DataStore") <= 1)
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\Download"))
             {
-                очищення.checkBox3.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox3.ForeColor = Color.FromName("Control");
+                if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\Download") <= 1)
+                {
+                    очищення.checkBox4.AutoCheck = false;
+                    if (Settings.Default.DarkTheme)
+                        очищення.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
+                    else
+                        очищення.checkBox4.ForeColor = Color.FromName("Control");
+                }
             }
 
-            if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.Windows) + @"\SoftwareDistribution\Download") <= 1)
+            string[] Drives = Environment.GetLogicalDrives();
+            string path = "";
+            foreach (string s in Drives)
             {
-                очищення.checkBox4.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox4.ForeColor = Color.FromName("Control");
+                path = $@"{s}$RECYCLE.BIN";
+                try
+                {
+                    if (Directory.Exists(path) && Cleaner.FolderSize(path) > 129)
+                    {
+                        очищення.checkBox5.AutoCheck = true;
+                        if (Settings.Default.DarkTheme)
+                            очищення.checkBox5.ForeColor = Color.FromName("Control");
+                        else
+                            очищення.checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                        break;
+                    }
+                }
+                catch (Exception){ }
+                
             }
 
-            if (Cleaner.FolderSize(@"C:\$RECYCLE.BIN") <= 129)
+            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\Telegram Desktop"))
             {
-                очищення.checkBox5.AutoCheck = false;
+                очищення.checkBox6.AutoCheck = false;
                 if (Settings.Default.DarkTheme)
-                    очищення.checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                    очищення.checkBox6.ForeColor = Color.FromName("ControlDarkDark");
                 else
-                    очищення.checkBox5.ForeColor = Color.FromName("Control");
+                    очищення.checkBox6.ForeColor = Color.FromName("Control");
             }
-
-            #endregion
-
-            #region Перевірка Оптимізації
-
-            оптимізація.checkBox1.AutoCheck = false;
-            if (Settings.Default.DarkTheme)
-                оптимізація.checkBox1.ForeColor = Color.FromName("ControlDarkDark");
-            else
-                оптимізація.checkBox1.ForeColor = Color.FromName("Control");
-
-            оптимізація.checkBox2.AutoCheck = false;
-            if (Settings.Default.DarkTheme)
-                оптимізація.checkBox2.ForeColor = Color.FromName("ControlDarkDark");
-            else
-                оптимізація.checkBox2.ForeColor = Color.FromName("Control");
-
-            if (Registry.LocalMachine.OpenSubKey("SOFTWARE\\Policies\\Microsoft\\Dsh").GetValue("AllowNewsAndInterests") == null)
+            if (Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data"))
             {
-                оптимізація.checkBox3.AutoCheck = true;
-                оптимізація.button4.Visible = false;
+                очищення.checkBox7.AutoCheck = true;
                 if (Settings.Default.DarkTheme)
-                    оптимізація.checkBox3.ForeColor = Color.FromName("Control");
+                    очищення.checkBox7.ForeColor = Color.FromName("Control");
                 else
-                    оптимізація.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
-            }
-            else
-            {
-                оптимізація.checkBox3.AutoCheck = false;
-                оптимізація.button4.Visible = true;
-                if (Settings.Default.DarkTheme)
-                    оптимізація.checkBox3.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    оптимізація.checkBox3.ForeColor = Color.FromName("Control");
-            }
-
-            if (Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\BackgroundAccessApplications").GetValue("GlobalUserDisabled") == null || Registry.CurrentUser.OpenSubKey("Software\\Microsoft\\Windows\\CurrentVersion\\Search").GetValue("BackgroundAppGlobalToggle") == null)
-            {
-                оптимізація.checkBox4.AutoCheck = true;
-                оптимізація.button5.Visible = false;
-                if (Settings.Default.DarkTheme)
-                    оптимізація.checkBox4.ForeColor = Color.FromName("Control");
-                else
-                    оптимізація.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
-            }
-            else
-            {
-                оптимізація.checkBox4.AutoCheck = false;
-                оптимізація.button5.Visible = true;
-                if (Settings.Default.DarkTheme)
-                    оптимізація.checkBox4.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    оптимізація.checkBox4.ForeColor = Color.FromName("Control");
+                    очищення.checkBox7.ForeColor = Color.FromName("ControlDarkDark");
             }
 
             #endregion
 
             PanelFormNoDispose(очищення);
-            Location = new Point(Location.X, Location.Y + 490);
-
+            await Task.Delay(500);
+            mainForm.Location = new Point(mainForm.Location.X, mainForm.Location.Y + 490);
 
             await Task.Delay(500);
             AnimationFormUo();
@@ -222,30 +206,42 @@ namespace Tweaker_in_1
         private async void PanelFormNoDispose(Form fm)
         {
             await Task.Delay(300);
-            if (active != null)
-                active.Visible = false;
-            active = fm;
-            fm.Visible = true;
+            if (fm != null && fm != active)
+            {
+                if (active != null)
+                    active.Visible = false;
+                active = fm;
+                fm.Visible = true;
+            }
+            else
+            {
+                MessageBox.Show("Окно короче наїбнулось бо null");
+            }
         }
 
         private async void AnimationFormUo()
         {
-            while (Opacity < 0.98)
+            while (mainForm.Opacity < 0.98)
             {
-                Opacity += 0.02;
-                Location = new Point(Location.X, Location.Y - 10);
+                mainForm.Opacity += 0.02;
+                mainForm.Location = new Point(mainForm.Location.X, mainForm.Location.Y - 10);
                 await Task.Delay(1);
             }
         }
 
         private async void AnimationFormDown()
         {
-            while (Opacity > 0)
+            while (mainForm.Opacity > 0)
             {
-                Opacity -= 0.02;
-                Location = new Point(Location.X, Location.Y + 10);
+                mainForm.Opacity -= 0.02;
+                mainForm.Location = new Point(mainForm.Location.X, mainForm.Location.Y + 10);
                 await Task.Delay(1);
             }
+        }
+
+        internal static void Cmd(string line)
+        {
+            Process.Start(new ProcessStartInfo { FileName = "cmd.exe", Arguments = $@"/c {line}", Verb = "runas", WindowStyle = ProcessWindowStyle.Hidden }).WaitForExit();
         }
 
         internal async void Print()
@@ -359,21 +355,88 @@ namespace Tweaker_in_1
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Sounds.PlaySound3();
-            if (button5.ForeColor != Color.FromArgb(255, 255, 255))
-                if (Settings.Default.DarkTheme)
-                    foreach (Button item in panel2.Controls.OfType<Button>())
-                    {
-                        item.ForeColor = Color.FromName("ControlDarkDark");
-                        button5.ForeColor = Color.FromArgb(255, 255, 255);
-                    }
+            //Sounds.PlaySound3();
+            //if (button5.ForeColor != Color.FromArgb(255, 255, 255))
+            //    if (Settings.Default.DarkTheme)
+            //        foreach (Button item in panel2.Controls.OfType<Button>())
+            //        {
+            //            item.ForeColor = Color.FromName("ControlDarkDark");
+            //            button5.ForeColor = Color.FromArgb(255, 255, 255);
+            //        }
+            //    else
+            //        foreach (Button item in panel2.Controls.OfType<Button>())
+            //        {
+            //            item.ForeColor = Color.FromName("ControlLightLight");
+            //            button5.ForeColor = Color.FromArgb(0, 0, 0);
+            //        }
+            //PanelFormNoDispose(системна_інформація);
+            //системна_інформація.Run();
+            //bool yes = false;
+            //Process[] listprosecc = Process.GetProcesses();
+            //foreach (var item in listprosecc)
+            //    if (item.ProcessName == ("WmiPrvSE"))
+            //        yes = true;
+
+            //if (File.Exists(@"C:\Windows\System32\wbem\WmiPrvSE.exe") && yes)
+            //{
+            try
+            {
+                string processor = "", coreCounts = "", friquencyProc = "", videoAdapters = "", motherboard = "";
+                ulong memory = 0;
+
+                #region Проц
+                foreach (var item in new ManagementObjectSearcher("root\\cimv2", "select * from win32_processor").Get())
+                {
+                    processor = item.GetPropertyValue("Name").ToString();
+                    coreCounts = item.GetPropertyValue("NumberOfCores").ToString();
+                    friquencyProc = item.GetPropertyValue("MaxClockSpeed").ToString();
+                }
+                #endregion
+
+                #region Мать
+                foreach (var item in new ManagementObjectSearcher("root\\cimv2", "select * from win32_baseboard").Get())
+                    motherboard += item.GetPropertyValue("Manufacturer").ToString() + " " + item.GetPropertyValue("Product").ToString();
+                #endregion
+
+                #region ОЗУ
+                foreach (var item in new ManagementObjectSearcher("root\\cimv2", "select * from win32_physicalmemory").Get())
+                    memory += (Convert.ToUInt64(item.GetPropertyValue("Capacity")) / 1024 / 1024);
+                #endregion
+
+                #region Видюха
+                foreach (var item in new ManagementObjectSearcher("root\\cimv2", "select * from win32_videocontroller").Get())
+                    if (videoAdapters.Length == 0 && item.GetPropertyValue("Name").ToString().Remove(5) == "Intel")
+                        videoAdapters += item.GetPropertyValue("Name").ToString();
+
+                foreach (var item in new ManagementObjectSearcher("root\\cimv2", "select * from win32_videocontroller").Get())
+                    if (item.GetPropertyValue("Name").ToString().Remove(5) != "Intel")
+                        if (videoAdapters.Length == 0)
+                            videoAdapters += item.GetPropertyValue("Name").ToString();
+                        else
+                            videoAdapters += "\n" + item.GetPropertyValue("Name").ToString();
+
+                #endregion
+
+                string OSBitDepth = "";
+                if (Environment.Is64BitOperatingSystem)
+                    OSBitDepth = "64-х разрядная";
                 else
-                    foreach (Button item in panel2.Controls.OfType<Button>())
-                    {
-                        item.ForeColor = Color.FromName("ControlLightLight");
-                        button5.ForeColor = Color.FromArgb(0, 0, 0);
-                    }
-            PanelFormNoDispose(системна_інформація);
+                    OSBitDepth = "32-х разрядная";
+                MessageBox.Show("ОС: " + Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("ProductName").ToString() + " " +
+                                Registry.LocalMachine.OpenSubKey(@"SOFTWARE\Microsoft\Windows NT\CurrentVersion").GetValue("DisplayVersion").ToString() + " " + OSBitDepth + Environment.NewLine +
+                                "Имя компьютера: " + Environment.MachineName + Environment.NewLine +
+                                $"Процессор: {processor}" + Environment.NewLine +
+                                "Частота процессора: " + Convert.ToInt32(friquencyProc) / 1000 + ".00GHz" + Environment.NewLine +
+                                "Количество ядер: " + coreCounts + Environment.NewLine +
+                                "Количество поток процессора: " + Environment.ProcessorCount + Environment.NewLine +
+                                $"Материнская плата: {motherboard}" + Environment.NewLine +
+                                "ОЗУ: " + memory + " MB" + Environment.NewLine +
+                                $"Видеокарта: {videoAdapters}", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("WMI відсутній на ПК");
+            }
         }
 
         private void button7_Click(object sender, EventArgs e)
@@ -471,7 +534,7 @@ namespace Tweaker_in_1
         {
             MessageBox.Show("Версія програми: " + Application.ProductVersion + " [beta]" + Environment.NewLine +
                 "Розробник: sulky" + Environment.NewLine +
-                "Програма розроблена на .NET Framework 4.7.2 та підтримується розробником", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                "Програма розроблена на .NET Framework 4.6.2 та підтримується розробником", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
     }
 }

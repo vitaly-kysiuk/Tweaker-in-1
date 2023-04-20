@@ -23,7 +23,7 @@ namespace Tweaker_in_1.Форми
             Properties.Settings.Default.Save();
         }
 
-        private static bool Ok(string host)
+        private static bool CheckInternet(string host)
         {
             try
             {
@@ -39,10 +39,10 @@ namespace Tweaker_in_1.Форми
             string programPath = Application.StartupPath + "\\";
             using (WebClient client = new WebClient())
             {
-                if (Ok("google.com"))
+                if (CheckInternet("google.com"))
                 {
                     string newVersion = client.DownloadString("https://drive.google.com/uc?export=download&confirm=no_antivirus&id=1XIOtZaD-fiE7oRK3frMv7minQ00G0otE");
-                    if (Convert.ToDouble(Application.ProductVersion, CultureInfo.InvariantCulture)  == Convert.ToDouble(newVersion, CultureInfo.InvariantCulture))
+                    if (Convert.ToDouble(Application.ProductVersion, CultureInfo.InvariantCulture) == Convert.ToDouble(newVersion, CultureInfo.InvariantCulture))
                         MessageBox.Show("Встановлена остання версія програми", Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     else
                     {

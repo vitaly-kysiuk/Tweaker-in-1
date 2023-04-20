@@ -40,6 +40,7 @@
             this.button4 = new System.Windows.Forms.Button();
             this.button5 = new System.Windows.Forms.Button();
             this.button6 = new System.Windows.Forms.Button();
+            this.checkBox5 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBox1
@@ -186,6 +187,20 @@
             this.button6.TabIndex = 11;
             this.button6.Text = "Відкатити все [beta]";
             this.button6.UseVisualStyleBackColor = false;
+            this.button6.Click += new System.EventHandler(this.button6_Click);
+            // 
+            // checkBox5
+            // 
+            this.checkBox5.AutoSize = true;
+            this.checkBox5.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBox5.Location = new System.Drawing.Point(12, 104);
+            this.checkBox5.Name = "checkBox5";
+            this.checkBox5.Size = new System.Drawing.Size(210, 17);
+            this.checkBox5.TabIndex = 12;
+            this.checkBox5.Text = "Відключити захисник Windows [beta]";
+            this.checkBox5.UseVisualStyleBackColor = true;
+            this.checkBox5.Visible = false;
+            this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
             // Оптимізація
             // 
@@ -193,6 +208,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.ClientSize = new System.Drawing.Size(461, 225);
+            this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button6);
             this.Controls.Add(this.button5);
             this.Controls.Add(this.button4);
@@ -206,6 +222,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Name = "Оптимізація";
             this.Text = "Оптимізація";
+            this.Load += new System.EventHandler(this.Оптимізація_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -223,5 +240,6 @@
         internal System.Windows.Forms.Button button3;
         internal System.Windows.Forms.Button button4;
         internal System.Windows.Forms.Button button5;
+        internal System.Windows.Forms.CheckBox checkBox5;
     }
 }

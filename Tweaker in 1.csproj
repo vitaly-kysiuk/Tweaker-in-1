@@ -8,11 +8,12 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>Tweaker_in_1</RootNamespace>
     <AssemblyName>Tweaker in 1</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Deterministic>true</Deterministic>
-    <PublishUrl>publish\</PublishUrl>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>C:\Users\sulky\Desktop\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -22,11 +23,12 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationRevision>1</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
     <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -47,6 +49,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>Speedtest_41127.ico</ApplicationIcon>
@@ -73,10 +76,17 @@
   <PropertyGroup>
     <ManifestKeyFile>Tweaker in 1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>false</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
+    <Reference Include="System.ServiceProcess" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -96,6 +106,7 @@
     </Compile>
     <Compile Include="FunctionalForForms\FormTheme.cs" />
     <Compile Include="FunctionalForForms\Cleaner.cs" />
+    <Compile Include="FunctionalForForms\TrustedInstaller.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FunctionalForForms\Sounds.cs" />
@@ -122,12 +133,6 @@
     </Compile>
     <Compile Include="Форми\Очищення.Designer.cs">
       <DependentUpon>Очищення.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Форми\Системна інформація.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Форми\Системна інформація.Designer.cs">
-      <DependentUpon>Системна інформація.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
@@ -157,9 +162,6 @@
     <EmbeddedResource Include="Форми\Очищення.resx">
       <DependentUpon>Очищення.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Форми\Системна інформація.resx">
-      <DependentUpon>Системна інформація.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="app.manifest" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -187,6 +189,7 @@
     <None Include="Resources\3.wav" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Resources\WinDefend.exe" />
     <Content Include="Speedtest_41127.ico" />
   </ItemGroup>
   <ItemGroup>

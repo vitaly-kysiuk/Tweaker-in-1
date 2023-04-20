@@ -121,6 +121,9 @@
   <data name="Speedtest_41127" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\Speedtest_41127.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="WinDefend" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\WinDefend.exe;System.Byte[], mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
   <data name="_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\1.wav;System.IO.MemoryStream, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>

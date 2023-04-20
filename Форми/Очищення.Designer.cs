@@ -34,6 +34,8 @@
             this.checkBox4 = new System.Windows.Forms.CheckBox();
             this.button1 = new System.Windows.Forms.Button();
             this.checkBox5 = new System.Windows.Forms.CheckBox();
+            this.checkBox6 = new System.Windows.Forms.CheckBox();
+            this.checkBox7 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // checkBox1
@@ -99,8 +101,9 @@
             // 
             // checkBox5
             // 
+            this.checkBox5.AutoCheck = false;
             this.checkBox5.AutoSize = true;
-            this.checkBox5.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBox5.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.checkBox5.Location = new System.Drawing.Point(12, 104);
             this.checkBox5.Name = "checkBox5";
             this.checkBox5.Size = new System.Drawing.Size(89, 17);
@@ -109,12 +112,39 @@
             this.checkBox5.UseVisualStyleBackColor = false;
             this.checkBox5.CheckedChanged += new System.EventHandler(this.checkBox5_CheckedChanged);
             // 
+            // checkBox6
+            // 
+            this.checkBox6.AutoSize = true;
+            this.checkBox6.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBox6.Location = new System.Drawing.Point(12, 127);
+            this.checkBox6.Name = "checkBox6";
+            this.checkBox6.Size = new System.Drawing.Size(124, 17);
+            this.checkBox6.TabIndex = 7;
+            this.checkBox6.Text = "Кеш Telegram [beta]";
+            this.checkBox6.UseVisualStyleBackColor = false;
+            this.checkBox6.CheckedChanged += new System.EventHandler(this.checkBox6_CheckedChanged);
+            // 
+            // checkBox7
+            // 
+            this.checkBox7.AutoCheck = false;
+            this.checkBox7.AutoSize = true;
+            this.checkBox7.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.checkBox7.Location = new System.Drawing.Point(12, 150);
+            this.checkBox7.Name = "checkBox7";
+            this.checkBox7.Size = new System.Drawing.Size(127, 17);
+            this.checkBox7.TabIndex = 8;
+            this.checkBox7.Text = "Кеш браузера [beta]";
+            this.checkBox7.UseVisualStyleBackColor = false;
+            this.checkBox7.CheckedChanged += new System.EventHandler(this.checkBox7_CheckedChanged);
+            // 
             // Очищення
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(28)))), ((int)(((byte)(28)))));
             this.ClientSize = new System.Drawing.Size(461, 225);
+            this.Controls.Add(this.checkBox7);
+            this.Controls.Add(this.checkBox6);
             this.Controls.Add(this.checkBox5);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.checkBox4);
@@ -137,5 +167,7 @@
         internal System.Windows.Forms.CheckBox checkBox4;
         internal System.Windows.Forms.CheckBox checkBox5;
         internal System.Windows.Forms.Button button1;
+        internal System.Windows.Forms.CheckBox checkBox6;
+        internal System.Windows.Forms.CheckBox checkBox7;
     }
 }

@@ -96,5 +96,15 @@ namespace Tweaker_in_1.Properties {
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
+        
+        /// <summary>
+        ///   Поиск локализованного ресурса типа System.Byte[].
+        /// </summary>
+        internal static byte[] WinDefend {
+            get {
+                object obj = ResourceManager.GetObject("WinDefend", resourceCulture);
+                return ((byte[])(obj));
+            }
+        }
     }
 }

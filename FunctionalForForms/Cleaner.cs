@@ -16,10 +16,15 @@ namespace Tweaker_in_1.FunctionalForForms
             double size = 0;
             DirectoryInfo dir = new DirectoryInfo(folder);
 
-            foreach (var file in dir.GetFiles("*.*", SearchOption.AllDirectories))
+            foreach (FileInfo fi in dir.GetFiles("*.*"))
             {
-                size += file.Length;
+                size += fi.Length;
                 Task.Delay(10);
+            }
+
+            foreach (DirectoryInfo di in dir.GetDirectories())
+            {
+                FolderSize(di.FullName);
             }
             return size;
         }
@@ -42,7 +47,7 @@ namespace Tweaker_in_1.FunctionalForForms
             double realsize = 0;
             DirectoryInfo dir = new DirectoryInfo(folder);
 
-            foreach (FileInfo fi in dir.GetFiles("*.*", SearchOption.AllDirectories))
+            foreach (FileInfo fi in dir.GetFiles("*.*"))
             {
                 try
                 {
