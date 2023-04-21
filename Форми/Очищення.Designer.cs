@@ -114,8 +114,9 @@
             // 
             // checkBox6
             // 
+            this.checkBox6.AutoCheck = false;
             this.checkBox6.AutoSize = true;
-            this.checkBox6.ForeColor = System.Drawing.SystemColors.Control;
+            this.checkBox6.ForeColor = System.Drawing.SystemColors.ControlDarkDark;
             this.checkBox6.Location = new System.Drawing.Point(12, 127);
             this.checkBox6.Name = "checkBox6";
             this.checkBox6.Size = new System.Drawing.Size(124, 17);

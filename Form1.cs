@@ -138,26 +138,31 @@ namespace Tweaker_in_1
                         break;
                     }
                 }
-                catch (Exception){ }
+                catch (Exception) { }
             }
 
-            if (!Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\Telegram Desktop"))
+            if (Directory.Exists(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\Telegram Desktop"))
             {
-                очищення.checkBox6.AutoCheck = false;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox6.ForeColor = Color.FromName("ControlDarkDark");
-                else
-                    очищення.checkBox6.ForeColor = Color.FromName("Control");
+                if (Cleaner.FolderSize(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile) + @"\Downloads\Telegram Desktop") > 1)
+                {
+                    очищення.checkBox6.AutoCheck = true;
+                    if (Settings.Default.DarkTheme)
+                        очищення.checkBox6.ForeColor = Color.FromName("Control");
+                    else
+                        очищення.checkBox6.ForeColor = Color.FromName("ControlDarkDark");
+                }
             }
-            if (Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data") || Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Google\Chrome\UserData\Default\Cache"))
+            if (Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data") || Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Google\Chrome\UserData\Default\Cache") || Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Opera Software\Opera GX Stable\Cache\Cache_Data") || Directory.Exists($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Opera Software\Opera GX Stable\System Cache\Cache_Data"))
             {
-                очищення.checkBox7.AutoCheck = true;
-                if (Settings.Default.DarkTheme)
-                    очищення.checkBox7.ForeColor = Color.FromName("Control");
-                else
-                    очищення.checkBox7.ForeColor = Color.FromName("ControlDarkDark");
+                if (Cleaner.FolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data") > 1 || Cleaner.FolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Google\Chrome\UserData\Default\Cache") > 1 || Cleaner.FolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Opera Software\Opera GX Stable\Cache\Cache_Data") > 1 || Cleaner.FolderSize($@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Opera Software\Opera GX Stable\System Cache\Cache_Data") > 1)
+                {
+                    очищення.checkBox7.AutoCheck = true;
+                    if (Settings.Default.DarkTheme)
+                        очищення.checkBox7.ForeColor = Color.FromName("Control");
+                    else
+                        очищення.checkBox7.ForeColor = Color.FromName("ControlDarkDark");
+                }
             }
-
             #endregion
 
             PanelFormNoDispose(очищення);

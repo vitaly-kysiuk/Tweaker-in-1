@@ -30,17 +30,30 @@ namespace Tweaker_in_1.FunctionalForForms
             DirectoryInfo directoryInfo = new DirectoryInfo(folder);
 
             // Add file sizes.
-            FileInfo[] fis = directoryInfo.GetFiles("*.*", SearchOption.TopDirectoryOnly);
-            foreach (FileInfo fi in fis)
+            if (Directory.Exists(folder))
             {
-                Size += fi.Length;
-                //MessageBox.Show(fi.FullName);
-            }
+                FileInfo[] fis = directoryInfo.GetFiles("*.*", SearchOption.TopDirectoryOnly);
+                foreach (FileInfo fi in fis)
+                {
+                    try
+                    {
+                        Size += fi.Length;
+                    }
+                    catch (Exception) { }
+                    //MessageBox.Show(fi.FullName);
+                }
 
-            // Add subdirectory sizes.
-            DirectoryInfo[] dis = directoryInfo.GetDirectories("*.*", SearchOption.TopDirectoryOnly);
-            foreach (DirectoryInfo di in dis)
-                Size += FolderSize(di.FullName);
+                // Add subdirectory sizes.
+                DirectoryInfo[] dis = directoryInfo.GetDirectories("*.*", SearchOption.TopDirectoryOnly);
+                foreach (DirectoryInfo di in dis)
+                {
+                    try
+                    {
+                        Size += FolderSize(di.FullName);
+                    }
+                    catch (Exception) { }
+                }
+            }
 
             return Size;
             //double size = 0;
@@ -79,14 +92,14 @@ namespace Tweaker_in_1.FunctionalForForms
 
             foreach (FileInfo fi in dir.GetFiles("*.*", SearchOption.TopDirectoryOnly))
             {
-                //try
-                //{
-                realsize = fi.Length;
-                fi.Delete();
-                size += realsize;
-                Task.Delay(10);
-                //}
-                //catch (Exception) { }
+                try
+                {
+                    realsize = fi.Length;
+                    fi.Delete();
+                    size += realsize;
+                    Task.Delay(10);
+                }
+                catch (Exception) { }
             }
 
             foreach (DirectoryInfo di in dir.GetDirectories("*.*"))

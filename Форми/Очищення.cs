@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Tweaker_in_1.FunctionalForForms;
 using Tweaker_in_1.Properties;
+using static System.Windows.Forms.AxHost;
 
 namespace Tweaker_in_1
 {
@@ -51,6 +52,10 @@ namespace Tweaker_in_1
             Sounds.PlaySound3();
         }
 
+        private void checkBox8_CheckedChanged(object sender, EventArgs e)
+        {
+            Sounds.PlaySound3();
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -164,26 +169,40 @@ namespace Tweaker_in_1
                 checkBox6.Checked = false;
                 checkBox6.AutoCheck = false;
                 if (Settings.Default.DarkTheme)
-                    checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                    checkBox6.ForeColor = Color.FromName("ControlDarkDark");
                 else
-                    checkBox5.ForeColor = Color.FromName("Control");
+                    checkBox6.ForeColor = Color.FromName("Control");
                 await Task.Delay(300);
             }
             if (checkBox7.Checked)
             {
+                #region Cent Browser
                 path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\CentBrowser\User Data\Default\Cache\Cache_Data";
                 if (Directory.Exists(path))
                     size += Cleaner.CleanerInFoldersTheFiles(path);
+                #endregion
+
+                #region Chrome
                 path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Google\Chrome\UserData\Default\Cache";
                 if (Directory.Exists(path))
                     size += Cleaner.CleanerInFoldersTheFiles(path);
+                #endregion
+
+                #region Opera Gx
+                path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Opera Software\Opera GX Stable\Cache\Cache_Data";
+                if (Directory.Exists(path))
+                    size += Cleaner.CleanerInFoldersTheFiles(path);
+                path = $@"{Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData)}\Opera Software\Opera GX Stable\System Cache\Cache_Data";
+                if (Directory.Exists(path))
+                    size += Cleaner.CleanerInFoldersTheFiles(path);
+                #endregion
 
                 checkBox7.Checked = false;
                 checkBox7.AutoCheck = false;
                 if (Settings.Default.DarkTheme)
-                    checkBox5.ForeColor = Color.FromName("ControlDarkDark");
+                    checkBox7.ForeColor = Color.FromName("ControlDarkDark");
                 else
-                    checkBox5.ForeColor = Color.FromName("Control");
+                    checkBox7.ForeColor = Color.FromName("Control");
             }
             size = Convert.ToDouble(string.Format("{0:f1}", size / 1024 / 1024));
             await Task.Delay(1000);
